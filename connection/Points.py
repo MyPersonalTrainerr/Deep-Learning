@@ -4,7 +4,7 @@ import json
 import mediapipe as mp
 # from google.colab.patches import cv2_imshow
 # import math
-# import argparse
+import argparse
 import numpy as np
 from time import time
 import matplotlib.pyplot as plt
@@ -20,24 +20,17 @@ mp_drawing = mp.solutions.drawing_utils
 #pose = mp_pose.Pose(static_image_mode=True, min_detection_confidence=0.3, model_complexity=2)
 
 #==================================================#
-# parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser()
 
-# parser.add_argument(
-#     '-v',
-#     '--video',
-#     help='Path to video file')
+parser.add_argument(
+    '-v',
+    '--video',
+    help='Path to video file')
 
-# args = parser.parse_args()
-#==================================================#
-# api-endpoint
-# URL = ""
-  
-# # sending get request and saving the response as response object
-# r = requests.get(url = URL)
-  
-# # extracting data in json format
-# video_path = r.json()
-video_path = "push-up3.mp4"
+args = parser.parse_args() 
+
+video_path=args.video
+#video_path = "push-up3.mp4"
 #==================================================#
 def detectPose(image, pose, display=True):
     '''
@@ -166,41 +159,3 @@ while video.isOpened():
 print(counter) 
 with open("Points.json", "a") as outfile:
     outfile.write(']') 
-      
-    # Set the time for this frame to the current time.
-    # time2 = time()
-    
-    # Check if the difference between the previous and this frame time &gt; 0 to avoid division by zero.
-    # if (time2 - time1) > 0:
-    # #if (time2 - time1) &gt; 0:
-    #     # Calculate the number of frames per second.
-    #     frames_per_second = 1.0 / (time2 - time1)
-        
-    #     # Write the calculated number of frames per second on the frame. 
-    #     cv2.putText(frame, 'FPS: {}'.format(int(frames_per_second)), (10, 30),cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
-    
-    # # Update the previous frame time to this frame time.
-    # # As this frame will become previous frame in next iteration.
-    # time1 = time2  
-
-    # Display the frame.
-    #cv2_imshow(frame)
-    
-    
-    # Wait until a key is pressed.
-    # Retreive the ASCII code of the key pressed
-    # k = cv2.waitKey(1) & 0xFF
-    #k= cv2.waitkey(1)==ord('q')
-    #k = cv2.waitKey(1) &amp; 0xFF  
-
-    # Check if 'ESC' is pressed.
-    # if(k == 27):
-        
-    #     # Break the loop.
-    #     break
- 
-# Release the VideoCapture object.
-# video.release()
- 
-# Close the windows.
-# cv2.destroyAllWindows()   
