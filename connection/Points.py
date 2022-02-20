@@ -6,11 +6,8 @@ import mediapipe as mp
 # import math
 import argparse
 import numpy as np
-from time import time
 import matplotlib.pyplot as plt
 
-counter =0
-Flag = False
 # Initializing mediapipe pose class.
 mp_pose = mp.solutions.pose
 #connection bet points(Initializing mediapipe drawing class, useful for annotation.)
@@ -30,7 +27,7 @@ parser.add_argument(
 args = parser.parse_args() 
 
 video_path=args.video
-#video_path = "push-up3.mp4"
+# video_path = "push-up3.mp4"
 #==================================================#
 def detectPose(image, pose, display=True):
     '''
@@ -90,43 +87,43 @@ def detectPose(image, pose, display=True):
         return output_image, landmarks
 
 #==================================================#        
-def Creating_Json(Landmarks, counter):
+def Creating_Json(Landmarks_list, index):
     Points = {}
-    if counter == 0:
-        Flag = False
-    else: 
-        Flag = True
-    if Landmarks:
-        # Iterate two times as we only want to display first two landmark.    
-        for i in range(33):
-            # Display the found landmarks after converting them into their original scale.
-            Points[i] = {
-                    'x':Landmarks[i][0],
-                    'y':Landmarks[i][1],
-                    'z':Landmarks[i][2],
-                    }
-        if Flag:
-            with open('Points.json', 'a') as outfile:
-                outfile.write(',\n')
-                outfile.write(''.join(json.dumps(Points, separators=(',',':'))))
-        else:
-            with open('Points.json', 'a') as outfile:
-                outfile.write('[')
-                outfile.write(''.join(json.dumps(Points, separators=(',',':'))))
-#==================================================#        
-#function for video
+    if Landmarks_list:
+        with open(f'Sec{index}.json', 'a') as outfile:
+            outfile.write('[')
 
-pose_video = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, model_complexity=1)
- 
-# Initialize the VideoCapture object to read from the webcam.
-#video = cv2.VideoCapture(0)
+        for frame in range(len(Landmarks_list)):
+            # Iterate two times as we only want to display first two landmark.    
+            for i in range(33):
+                # Display the found landmarks after converting them into their original scale.
+                Points[i] = {
+                        'x':Landmarks_list[frame][i][0],
+                        'y':Landmarks_list[frame][i][1],
+                        'z':Landmarks_list[frame][i][2],
+                        }
+            if frame:
+                with open(f'Sec{index}.json', 'a') as outfile:
+                    outfile.write(',\n')
+                    outfile.write(''.join(json.dumps(Points, separators=(',',':'))))
+            else:
+                 with open(f'Sec{index}.json', 'a') as outfile:
+                    outfile.write(''.join(json.dumps(Points, separators=(',',':'))))
+
+        with open(f'Sec{index}.json', "a") as outfile:
+            outfile.write(']') 
+#==================================================#
+#function for video
+pose_video = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, model_complexity=1) 
  
 # Initialize the VideoCapture object to read from a video stored in the disk.
 video = cv2.VideoCapture(video_path)
  
- 
-# Initialize a variable to store the time of the previous frame.
-# time1 = 0
+# Initialize a variable to store the duration.
+SEC_Index = 0
+counter = 0
+duration_SEC1 = 0
+Landmarks_list = []
  
 # Iterate until the video is accessed successfully.
 while video.isOpened():
@@ -152,10 +149,25 @@ while video.isOpened():
     # Perform Pose landmark detection.
     frame, Landmarks = detectPose(frame, pose_video, display=False)
     
-    # json file
-    Creating_Json(Landmarks,counter)
     counter = counter +1  
- 
-print(counter) 
-with open("Points.json", "a") as outfile:
-    outfile.write(']') 
+    Landmarks_list.append(Landmarks)
+
+    duration_MSEC = video.get(cv2.CAP_PROP_POS_MSEC)
+    duration_SEC2  = duration_MSEC/1000
+    
+    # Check the difference 
+    if (int(duration_SEC2)  - int(duration_SEC1)) == 1:
+      SEC_Index = int(duration_SEC2)
+      print(duration_SEC2)
+      # json file
+      Creating_Json(Landmarks_list, SEC_Index)
+      Landmarks_list.clear()
+
+    duration_SEC1 = duration_SEC2   
+
+if Landmarks_list:
+    SEC_Index += 1
+    print(SEC_Index)
+    Creating_Json(Landmarks_list, SEC_Index) 
+
+print(counter)
