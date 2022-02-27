@@ -94,7 +94,7 @@ def Creating_Json(Landmarks_list, index):
             outfile.write('[')
 
         for frame in range(len(Landmarks_list)):
-            # Iterate two times as we only want to display first two landmark.    
+            # Iterate 33 times to display all landmarks.    
             for i in range(33):
                 # Display the found landmarks after converting them into their original scale.
                 Points[i] = {
