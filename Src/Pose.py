@@ -64,7 +64,9 @@ def detectPose(image, pose, display=True):
             
             # Append the landmark into the list.
             landmarks.append((int(landmark.x * width), int(landmark.y * height), (landmark.z * width)))
-    
+    else:
+        landmarks.append([])
+
     # Check if the original input image and the resultant image are specified to be displayed.
     if display:
     
@@ -78,7 +80,7 @@ def detectPose(image, pose, display=True):
         
     # Otherwise
     else:
-        
+    
         # Return the output image and the found landmarks.
         return output_image, landmarks
 #==================================================#
@@ -117,13 +119,14 @@ while video.isOpened():
     
     # Perform Pose landmark detection.
     frame, Landmarks = detectPose(frame, pose_video, display=False)
-    
+    # print(Landmarks)
+
     counter = counter +1  
     Landmarks_list.append(Landmarks)
 
     duration_MSEC = video.get(cv2.CAP_PROP_POS_MSEC)
     duration_SEC2  = duration_MSEC/1000
-    print("in while loop")
+   
     # Check the difference 
     if (int(duration_SEC2)  - int(duration_SEC1)) == 1:
       SEC_Index = int(duration_SEC2)
