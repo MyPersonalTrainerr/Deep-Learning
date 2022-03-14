@@ -1,6 +1,7 @@
 import json
-
-     
+# import os
+# from natsort import natsorted
+   
 def Creating_Json(Landmarks_list, index):
     Points = {}
     if Landmarks_list:
@@ -40,4 +41,34 @@ def Creating_Json(Landmarks_list, index):
 
         with open(f'Sec{index}.json', "a") as outfile:
             outfile.write(']') 
-#==================================================#   
+    
+    with open(f'Sec{index}.json') as outfile: 
+        if ValidateJsonFile(outfile):
+            print(f'Sec{index}.json is valid')
+        else:
+            print(f'Sec{index}.json is invalid') 
+#==================================================#        
+def ValidateJsonFile(jsonFile):
+    try:
+        json.load(jsonFile)
+    except ValueError as error:
+        print(error)
+        return False
+    return True
+
+# def Existed_JsonFiles():
+#     path_to_json = '/home/beshbesh/Deep-Learning'
+#     json_files = [pos_json for pos_json in os.listdir(
+#         path_to_json) if pos_json.endswith('.json')]
+#     Sorted_List = natsorted(json_files)
+#     return (Sorted_List)
+#==================================================#  
+
+# json_files = Existed_JsonFiles()
+# print(json_files)
+# for jf in json_files:
+#     with open(jf) as file:
+#         if ValidateJsonFile(file):
+#             print(f'{jf} is valid')
+#         else:
+#             print(f'{jf} is invalid')

@@ -13,17 +13,17 @@ mp_drawing = mp.solutions.drawing_utils
 #pose = mp_pose.Pose(static_image_mode=True, min_detection_confidence=0.3, model_complexity=2)
 
 #==================================================#
-parser = argparse.ArgumentParser()
+# parser = argparse.ArgumentParser()
 
-parser.add_argument(
-    '-v',
-    '--video',
-    help='Path to video file')
+# parser.add_argument(
+#     '-v',
+#     '--video',
+#     help='Path to video file')
 
-args = parser.parse_args() 
+# args = parser.parse_args() 
 
-video_path=args.video
-# video_path = "push-up3.mp4"
+# video_path=args.video
+video_path = "push-up3.mp4"
 #==================================================#
 def detectPose(image, pose, display=True):
     '''
