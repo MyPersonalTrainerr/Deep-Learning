@@ -15,4 +15,5 @@ pip install tensorflow
 - [Main](https://github.com/MyPersonalTrainerr/Deep-Learning/blob/main/main.py)
 
 #### TensorBoard!
-- [Example](https://colab.research.google.com/drive/1ML0MypYgL1mcA8Sp_-6pWZDiaJSj4uRK?usp=sharing)
+- [LearnTensorBoard](https://github.com/MyPersonalTrainerr/Deep-Learning/blob/FineTuning/LearnTensorBoard.ipynb)
+- [GoogleColab](https://colab.research.google.com/drive/1ML0MypYgL1mcA8Sp_-6pWZDiaJSj4uRK?usp=sharing)
