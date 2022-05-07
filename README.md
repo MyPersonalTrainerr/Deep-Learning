@@ -12,7 +12,7 @@ pip install tensorflow
 ```
 
 #### TensorFlow's Hello World!
-- [Main](https://github.com/MyPersonalTrainerr/Deep-Learning/blob/main/main.py)
+- [Start with tensorflow](https://github.com/MyPersonalTrainerr/Deep-Learning/blob/main/start_tensorflow.py)
 
 #### TensorBoard!
 - [LearnTensorBoard](https://github.com/MyPersonalTrainerr/Deep-Learning/blob/FineTuning/LearnTensorBoard.ipynb)
