@@ -10,17 +10,13 @@ second_index = 0
 time1 = 0
 time2 = 0
 list_of_frames = []
+
 #==================================================#
 # parser = argparse.ArgumentParser()
-
-# parser.add_argument(
-#     '-v',
-#     '--video',
-#     help='Path to video file')
-
+# parser.add_argument('-v', '--video', help='Path to video file')
 # args = parser.parse_args() 
 
-# video_path=args.video
+# video_path = args.video
 video_path = "push-up3.mp4"
 #==================================================#
 #function for video
