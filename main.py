@@ -13,12 +13,12 @@ time2 = 0
 list_of_frames = []
 
 #==================================================#
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-v', '--video', help='Path to video file')
-# args = parser.parse_args() 
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', '--video', help='Path to video file')
+args = parser.parse_args() 
 
-# video_path = args.video
-video_path = "push-up3.mp4"
+video_path = args.video
+# video_path = "push-up3.mp4"
 #==================================================#
 video_name = os.path.basename(video_path).split('.')[0]
 #function for video
