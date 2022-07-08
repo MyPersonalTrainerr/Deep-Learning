@@ -2,7 +2,7 @@ import cv2
 import argparse
 import os
 
-from utils.utils import *
+from utils.utils_for_one_json import *
 from model.detect_pose import *
 
 # Initialize a variable to store the duration.
@@ -13,14 +13,16 @@ time2 = 0
 list_of_frames = []
 
 #==================================================#
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-v', '--video', help='Path to video file')
-# args = parser.parse_args() 
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', '--video', help='Path to video file')
+args = parser.parse_args() 
 
-# video_path = args.video
-video_path = "push-up3.mp4"
+video_path = args.video
+# video_path = "push-up3.mp4"
 #==================================================#
+
 video_name = os.path.basename(video_path).split('.')[0]
+
 #function for video
 pose_video = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, model_complexity=1) 
  
@@ -53,19 +55,8 @@ while video.isOpened():
     frame, Landmarks = detectPose(frame, pose_video, display=False)
       
     list_of_frames.append(Landmarks)
-    time2 = calculate_duration(video)
-    time_difference = int(time2) - int(time1) 
-
-    # Check if the difference = one sec 
-    if (time_difference == 1):
-        second_index = second_index + 1
-        create_json_file_for_this_second(list_of_frames, second_index)
-
-    time1 = time2 
     frame_counter = frame_counter + 1
-  
-if list_of_frames:
-    second_index = second_index + 1
-    create_json_file_for_this_second(list_of_frames, second_index)
 
+
+create_one_json_file(list_of_frames, video_name)
 print(frame_counter)
