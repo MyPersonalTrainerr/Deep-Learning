@@ -50,28 +50,28 @@ def create_one_json_file(list_of_frames, video_name):
 # Handling json file                               
 #==================================================#   
 def start_file(video_name):
-    with open(f'{video_name}.json', 'a') as outfile:
+    with open(f'Points.json', 'a') as outfile:
         outfile.write('[')  
 #==================================================#  
 def end_file(video_name):              
-    with open(f'{video_name}.json', "a") as outfile:
+    with open(f'Points.json', "a") as outfile:
         outfile.write(']') 
 #==================================================# 
 def handle_empty_frame(frame, video_name):
         if frame:
-            with open(f'{video_name}.json', 'a') as outfile:
+            with open(f'Points.json', 'a') as outfile:
                 outfile.write(',\n')
                 outfile.write('[]')
         else:
-            with open(f'{video_name}.json', 'a') as outfile:
+            with open(f'Points.json', 'a') as outfile:
                 outfile.write('[]')
 #==================================================#  
 def handle_not_empty_first_frame(video_name, Points):
-    with open(f'{video_name}.json', 'a') as outfile:
+    with open(f'Points.json', 'a') as outfile:
         outfile.write(''.join(json.dumps(Points, separators=(',',':')))) 
 #==================================================#  
 def handle_not_empty_not_first_frame(video_name, Points):
-    with open(f'{video_name}.json', 'a') as outfile:
+    with open(f'Points.json', 'a') as outfile:
         outfile.write(',\n')
         outfile.write(''.join(json.dumps(Points, separators=(',',':'))))
 #==================================================# 
@@ -79,11 +79,11 @@ def handle_not_empty_not_first_frame(video_name, Points):
 #==================================================#    
 def handle_validation(video_name):
     # Validate files
-    with open(f'{video_name}.json') as outfile: 
+    with open(f'Points.json') as outfile: 
         if ValidateJsonFile(outfile):
-            print(f'{video_name}.json is valid')
+            print(f'Points.json is valid')
         else:
-            print(f'{video_name}.json is invalid') 
+            print(f'Points.json is invalid') 
 #==================================================#  
 def ValidateJsonFile(jsonFile):
     try:
